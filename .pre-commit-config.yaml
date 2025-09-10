@@ -1,0 +1,95 @@
+# … header …
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+      - id: detect-private-key
+      - id: check-merge-conflict
+      - id: name-tests-test
+      - id: forbid-new-submodules
+      - id: check-added-large-files
+        args: ["--maxkb=512"]
+      - id: no-commit-to-branch
+        args: [--branch, main]
+
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pycqa/isort
+    rev: 6.0.1
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.12.12
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.3.0
+    hooks:
+      - id: pydocstyle
+
+  - repo: https://github.com/econchick/interrogate
+    rev: 1.7.0
+    hooks:
+      - id: interrogate
+        args: ["-c", "pyproject.toml", "-v"]
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: ["--ignore-words-list=crate,fo"]
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        args: ["-c", "pyproject.toml", "-r", "src"]
+
+  # ---------- REUSE: SPDX headers & license lint ----------
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v5.1.1
+    hooks:
+      - id: reuse
+        name: "REUSE lint (SPDX license compliance)"
+        args: ["lint"]
+
+  - repo: local
+    hooks:
+      - id: reuse-add-headers
+        name: "REUSE add headers"
+        entry: bash -lc 'reuse addheader --year "$(date +%Y)" --copyright "Torsten Knodt and contributors" --license GPL-3.0-or-later $(git ls-files)'
+        language: system
+        pass_filenames: false
+        stages: [manual]   # Run manually: `pre-commit run reuse-add-headers`
+                          # (keeps CI fast; REUSE lint enforces on every run)
+
+  # ---------- Formatting helpers ----------
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: v2.6.0
+    hooks:
+      - id: pyproject-fmt
+
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        additional_dependencies: [mdformat-gfm>=0.4.1, mdformat-frontmatter>=2.0.8]
+
+  # ---------- Security: dependency audit ----------
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.9.0
+    hooks:
+      - id: pip-audit
+        args: ["-r", "pyproject.toml", "--require-hashes=false"]
+        additional_dependencies: []

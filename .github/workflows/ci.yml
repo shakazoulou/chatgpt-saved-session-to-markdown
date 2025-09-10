@@ -1,0 +1,66 @@
+# Copyright (C) 2025 Torsten Knodt and contributors
+# GNU General Public License
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    name: Lint, Typecheck, Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+
+    steps:
+      - name: Cache pre-commit
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: ${{ runner.os }}-pre-commit-
+
+      - name: Pre-commit (format, lint, security, REUSE)
+        run: pre-commit run --all-files
+
+      - name: pip-audit (vulnerabilities)
+        run: pip-audit -r pyproject.toml || true  # non-blocking by default; set to fail if you prefer
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install package and dev deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Pre-commit (format, lint, security, headers, docs)
+        run: |
+          pre-commit run --all-files
+
+      - name: Type-check (mypy)
+        run: |
+          mypy src
+
+      - name: Tests (pytest)
+        run: |
+          pytest -q
+
+      - name: CLI no-args smoke (module)
+        run: |
+          python -m chatgpt_saved_session_to_markdown.cli
+
+      - name: CLI no-args smoke (entry point)
+        run: |
+          chatgpt-saved-session-to-markdown
