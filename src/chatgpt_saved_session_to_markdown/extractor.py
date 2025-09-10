@@ -371,7 +371,7 @@ def process_many(inputs: Sequence[str], outdir: Path | None, jobs: int) -> list[
                 produced_total.extend(fut.result())
             except Exception as exc:
                 failures.append(f"{src}: {exc}")
-                LOGGER.error("Failed: %s: %s", src, exc)
+                LOGGER.error("Failed: %s", src, exc_info=exc)
     if failures:
         raise RuntimeError("Some files failed:\n" + "\n".join(failures))
     return produced_total
